@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TaskRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Models\Task;
@@ -29,48 +30,38 @@ class TasksController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(TaskRequest $request): RedirectResponse
     {
-        $data = $request->validate([
-            'title' => 'required',
-            'description' => 'required',
-            'long_description' => 'required'
-        ]);
-    
-        $task = new Task();
-    
-        $task->title = $data['title'];
-        $task->description = $data['description'];
-        $task->long_description = $data['long_description'];
-    
-        $task->save();
-    
-        return redirect()->route('tasks.show', ['id' => $task->id]);
+        $data = $request->validated();
+        $task = Task::create($data);
+        return redirect()->route('tasks.show', $task->id)->with('success', 'Task created !!!');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Task $task)
     {
-        $task = Task::findOrFail($id)->first();
         return view('show', ['task' => $task]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Task $task)
     {
-        //
+        return view('edit', ['task' => $task]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(TaskRequest $request, Task $task)
     {
-        //
+        $data = $request->validated();
+        $task->update($data);
+    
+        return redirect()->route('tasks.show', $task->id)->with('success', 'Task Updated !!!');
     }
 
     /**

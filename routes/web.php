@@ -29,10 +29,16 @@ Route::get('/tasks',[TasksController::class, 'index'])->name('tasks.index');
 Route::get('/tasks/create', [TasksController::class, 'create'])->name('tasks.create');
 
 
-Route::get('/tasks/{id}', [TasksController::class, 'show'])->name('tasks.show');
+Route::get('/tasks/{task}', [TasksController::class, 'show'])->name('tasks.show');
 
 
 Route::post('/tasks', [TasksController::class, 'store'])->name('tasks.store');
+
+
+Route::get('/tasks/{task}/edit', [TasksController::class, 'edit'])->name('tasks.edit');
+
+
+Route::put('/tasks/{task}/update', [TasksController::class, 'update'])->name('tasks.update');
 
 
 

@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Task extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['title', 'description', 'long_description']; # More Security
+    //protected $guarded = ['password'];
+
+    // public function getRouteKeyName()
+    // {
+    //     return 'slug';
+    // }
 }
