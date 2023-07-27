@@ -10,7 +10,7 @@
       @if($task)
   
         <div class="text-xs font-bold">
-          <a href="{{ route('tasks.show', $task->id)}}">{{ $task->title }}</a>
+          <a href="{{ route('tasks.show', ['task' => $task->id])}}">{{ $task->title }}</a>
           
         </div>
       @else
