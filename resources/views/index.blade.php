@@ -5,15 +5,15 @@
 @section('title', 'The list of tasks')
 
 @section('content')
-  <div>
-    <a href="{{ route('tasks.create') }}">Add Task</a>
-  </div>
+  <nav class="mb-4">
+    <a href="{{ route('tasks.create') }}" class="link">Add Task</a>
+  </nav>
  
   @foreach ($tasks as $task)
       @if($task)
   
-        <div class="text-xs font-bold">
-          <a href="{{ route('tasks.show', ['task' => $task->id])}}">{{ $task->title }}</a>
+        <div class="text-xs font-bold p-1">
+          <a href="{{ route('tasks.show', ['task' => $task->id])}}" @class(['font-bold', 'line-through' => $task->completed])>{{ $task->title }}</a>
           
         </div>
       @else
@@ -24,7 +24,7 @@
   @endforeach
 
   @if ($tasks->count())
-    <nav>
+    <nav class="mt-4">
       {{ $tasks->links() }}
     </nav>
   @endif
