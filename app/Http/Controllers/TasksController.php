@@ -14,7 +14,7 @@ class TasksController extends Controller
      */
     public function index()
     {
-        $tasks = Task::all();
+        $tasks = Task::latest()->paginate();
         // $tasks = \App\Models\Task::latest()->where('completed', true)->get();
         return view('index', ['tasks' => $tasks]);
     }
